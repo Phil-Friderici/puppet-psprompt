@@ -1,0 +1,7 @@
+# This file is being maintained by Puppet.
+# DO NOT EDIT
+if [ $(id -u) -eq 0 ]; then
+ export PS1="[\u@<%= @name %> \W]# "
+else
+ export PS1="[\u@<%= @name %> \W]\$ "
+fi
