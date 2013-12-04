@@ -46,7 +46,7 @@ class ps-prompt (
     owner   => $cshfile_owner,
     group   => $cshfile_group,
     mode    => $cshfile_mode,
-    content => template('prompt/ps1.csh.erb')
+    content => template('ps-prompt/ps1.csh.erb')
   }
 
   file { 'ps1.sh':
@@ -55,7 +55,7 @@ class ps-prompt (
     owner   => $shfile_owner,
     group   => $shfile_group,
     mode    => $shfile_mode,
-    content => template('prompt/ps1.sh.erb')
+    content => template('ps-prompt/ps1.sh.erb')
   }
 
 }
