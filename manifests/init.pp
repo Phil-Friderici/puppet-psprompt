@@ -2,7 +2,7 @@
 #
 # Module to manage PS1 prompts
 #
-class ps-prompt (
+class psprompt (
   $profile_dir    = '/etc/profile.d/',
   $cshfile_path        = '/etc/profile.d/ps1.csh',
   $cshfile_ensure = 'file',
@@ -24,8 +24,7 @@ class ps-prompt (
       # noop, these values are valid
     }
     default: {
-      fail("Valid values for \$cshfile_ensure are \'absent\', \'file\', or \'present\'.
- Specified value is ${cshfile_ensure}")
+      fail("Valid values for \$cshfile_ensure are \'absent\', \'file\', or \'present\'. Specified value is ${cshfile_ensure}")
     }
   }
 
@@ -35,8 +34,7 @@ class ps-prompt (
       # noop, these values are valid
     }
     default: {
-      fail("Valid values for \$shfile_ensure are \'absent\', \'file\', or \'present\'.
- Specified value is ${shfile_ensure}")
+      fail("Valid values for \$shfile_ensure are \'absent\', \'file\', or \'present\'. Specified value is ${shfile_ensure}")
     }
   }
 
@@ -46,7 +44,7 @@ class ps-prompt (
     owner   => $cshfile_owner,
     group   => $cshfile_group,
     mode    => $cshfile_mode,
-    content => template('ps-prompt/ps1.csh.erb')
+    content => template('psprompt/ps1.csh.erb')
   }
 
   file { 'ps1.sh':
@@ -55,7 +53,7 @@ class ps-prompt (
     owner   => $shfile_owner,
     group   => $shfile_group,
     mode    => $shfile_mode,
-    content => template('ps-prompt/ps1.sh.erb')
+    content => template('psprompt/ps1.sh.erb')
   }
 
 }
