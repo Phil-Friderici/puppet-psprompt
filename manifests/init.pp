@@ -4,39 +4,24 @@
 #
 class psprompt (
   $profile_dir    = '/etc/profile.d/',
-  $cshfile_path        = '/etc/profile.d/ps1.csh',
+  $cshfile_path   = '/etc/profile.d/ps1.csh',
   $cshfile_ensure = 'file',
   $cshfile_owner  = 'root',
   $cshfile_group  = 'root',
   $cshfile_mode   = '0644',
-  $shfile_path         = '/etc/profile.d/ps1.sh',
-  $shfile_ensure      = 'file',
-  $shfile_owner       = 'root',
-  $shfile_group       = 'root',
-  $shfile_mode        = '0644',
-  $name           = $::hostname,    
-
+  $shfile_path    = '/etc/profile.d/ps1.sh',
+  $shfile_ensure  = 'file',
+  $shfile_owner   = 'root',
+  $shfile_group   = 'root',
+  $shfile_mode    = '0644',
+  $psname         = $::hostname,
 ) {
 
   # Validates $cshfile_ensure
-  case $cshfile_ensure {
-    'file', 'present', 'absent': {
-      # noop, these values are valid
-    }
-    default: {
-      fail("Valid values for \$cshfile_ensure are \'absent\', \'file\', or \'present\'. Specified value is ${cshfile_ensure}")
-    }
-  }
+  validate_re($cshfile_ensure, ['^file','^present','^absent'], "Valid values for \$cshfile_ensure are \'absent\', \'file\', or \'present\'. Specified value is ${cshfile_ensure}")
 
   # Validates $cshfile_ensure
-  case $shfile_ensure {
-    'file', 'present', 'absent': {
-      # noop, these values are valid
-    }
-    default: {
-      fail("Valid values for \$shfile_ensure are \'absent\', \'file\', or \'present\'. Specified value is ${shfile_ensure}")
-    }
-  }
+  validate_re($shfile_ensure, ['^file','^present','^absent'], "Valid values for \$shfile_ensure are \'absent\', \'file\', or \'present\'. Specified value is ${shfile_ensure}")
 
   file { 'ps1.csh':
     ensure  => $cshfile_ensure,
@@ -55,5 +40,4 @@ class psprompt (
     mode    => $shfile_mode,
     content => template('psprompt/ps1.sh.erb')
   }
-
 }
